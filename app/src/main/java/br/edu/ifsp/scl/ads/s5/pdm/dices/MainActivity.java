@@ -14,7 +14,6 @@ import br.edu.ifsp.scl.ads.s5.pdm.dices.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding activityMainBinding;
-    private TextView mensagemTv;
 
 
     @Override
@@ -24,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
-
-        //setContentView(R.layout.activity_main);
     }
 
     public void onClick(View view) {
