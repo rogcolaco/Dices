@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Random;
+
 import br.edu.ifsp.scl.ads.s5.pdm.dices.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,9 +21,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.v(getString(R.string.app_name), "onCreate executado - iniciado ciclo de vida completo");
-        setContentView(R.layout.activity_main);
+
+        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(activityMainBinding.getRoot());
+
+        //setContentView(R.layout.activity_main);
     }
 
     public void onClick(View view) {
+        if(view == activityMainBinding.jogarBt){
+            Integer resultado = new Random(System.currentTimeMillis()).nextInt(6) + 1;
+            activityMainBinding.resultadoTv.setText(resultado.toString());
+
+            String resultadoImagem = "dice_"+resultado;
+            activityMainBinding.resultadoIv.setImageResource(
+                    getResources().getIdentifier(resultadoImagem,"drawable", getPackageName())
+            );
+        }
     }
 }
