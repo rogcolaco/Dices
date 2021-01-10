@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_CONFIGURACOES = "EXTRA_CONFIGURACOES";
     private final String CONFIGURACOES = "CONFIGURACOES";
     private final String DOIS_DADOS = "DOIS_DADOS";
+    private final String IMAGEM_DADO_1 = "IMAGEM_DADO_1";
+    private final String NUMERO_FACES = "NUMERO_FACES";
 
 
     @Override
@@ -46,7 +48,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(savedInstanceState != null){
             resultadoTv.setText(savedInstanceState.getString((RESULTADO_SORTEADO_TV)));
-            resultado = Integer.parseInt(savedInstanceState.getString(RESULTADO_SORTEADO_TV, ""));
+            if(!savedInstanceState.getString(RESULTADO_SORTEADO_TV).equals("Não Lançado")){
+                resultado = Integer.parseInt(savedInstanceState.getString(RESULTADO_SORTEADO_TV, ""));
+            }
+            //resultado = Integer.parseInt(savedInstanceState.getString(RESULTADO_SORTEADO_TV, ""));
             resultadoImagem1 = savedInstanceState.getString(IMAGEM_RESULTADO_DADO_1, "");
 
             //VERIFICAR COMO SALVAR O DADO SORTEADO NA TELA
@@ -62,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putString(RESULTADO_SORTEADO_TV, resultadoTv.getText().toString());
         outState.putBoolean(DOIS_DADOS, configuracoes.getDoisDados());
+        outState.putInt(NUMERO_FACES, configuracoes.getNumFaces());
+        //outState.putString(IMAGEM_DADO_1, dado.getDice1Image());
 
         //VERIFICAR COMO SALVAR O DADO SORTEADO NA TELA
         /*outState.putString(IMAGEM_RESULTADO_DADO_1, resultadoImagem1);
@@ -83,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent configuracoesIntent = new Intent(CONFIGURACOES);
                 configuracoesIntent.putExtra(EXTRA_CONFIGURACOES, configuracoes);
                 startActivityForResult(configuracoesIntent, CONFIGURACOES_REQUEST_CODE);
+                if(configuracoes.getNumFaces()>6){
+                    findViewById(R.id.resultadoIv).setVisibility(View.GONE);
+                }
                 return true;
 
             case R.id.sairMi:
@@ -111,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View view) {
         if(view == activityMainBinding.jogarBt){
-            resultado = new Random(System.currentTimeMillis()).nextInt(6) + 1;
+            //resultado = new Random(System.currentTimeMillis()).nextInt(6) + 1;
+            resultado = new Random(System.currentTimeMillis()).nextInt(configuracoes.getNumFaces()) + 1;
             activityMainBinding.resultadoTv.setText(resultado.toString());
 
             String resultadoImagem1 = "dice_"+resultado;
