@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -56,6 +58,26 @@ public class MainActivity extends AppCompatActivity {
         //VERIFICAR COMO SALVAR O DADO SORTEADO NA TELA
         /*outState.putString(IMAGEM_RESULTADO_DADO_1, resultadoImagem1);
         System.out.println("salvando resultado:" + resultadoImagem1);*/
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.sairMi:
+                finish();
+                return true;
+
+            default:
+                return false;
+        }
     }
 
     public void onClick(View view) {

@@ -8,4 +8,6 @@
     <string name="umDado">1</string>
     <string name="doisDados">2</string>
     <string name="salvar">Salvar</string>
+    <string name="configuracoes">Configuracoes</string>
+    <string name="sair">Sair</string>
 </resources>
