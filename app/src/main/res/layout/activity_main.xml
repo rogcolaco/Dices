@@ -37,9 +37,9 @@
         />
 
     <ImageView
+        android:id="@+id/resultado2Iv"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:src="@drawable/dice_4"
         android:visibility="gone"
         />
 

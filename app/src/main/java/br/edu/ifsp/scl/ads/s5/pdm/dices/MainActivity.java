@@ -1,8 +1,10 @@
 package br.edu.ifsp.scl.ads.s5.pdm.dices;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding activityMainBinding;
     private TextView resultadoTv;
+    private Configuracoes configuracoes = new Configuracoes(false,6);
 
     Integer resultado;
     String resultadoImagem1;
@@ -25,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
     private final String RESULTADO_SORTEADO_TV = "RESULTADO_SORTEADO_TV";
     private final String IMAGEM_RESULTADO_DADO_1 = "IMAGEM_RESULTADO_DADO_1";
+    private final int CONFIGURACOES_REQUEST_CODE = 0;
+    public static final String EXTRA_CONFIGURACOES = "EXTRA_CONFIGURACOES";
+    private final String CONFIGURACOES = "CONFIGURACOES";
 
 
     @Override
@@ -71,12 +77,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
+            case R.id.configuracoesMi:
+                Intent configuracoesIntent = new Intent(CONFIGURACOES);
+                configuracoesIntent.putExtra(EXTRA_CONFIGURACOES, configuracoes);
+                startActivityForResult(configuracoesIntent, CONFIGURACOES_REQUEST_CODE);
+                return true;
+
             case R.id.sairMi:
                 finish();
                 return true;
 
             default:
                 return false;
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CONFIGURACOES_REQUEST_CODE && resultCode == RESULT_OK && data != null){
+            configuracoes = data.getParcelableExtra(EXTRA_CONFIGURACOES);
+            if (configuracoes != null && configuracoes.getDoisDados()) {
+                findViewById(R.id.resultado2Iv).setVisibility(View.VISIBLE);
+            }
+            else {
+                findViewById(R.id.resultado2Iv).setVisibility(View.GONE);
+            }
         }
     }
 

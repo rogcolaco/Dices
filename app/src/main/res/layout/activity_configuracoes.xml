@@ -16,19 +16,19 @@
         android:textSize="25sp" />
 
     <RadioGroup
-        android:id="@+id/tipoCalculadoraRg"
+        android:id="@+id/qtdDadosRg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="15sp">
 
         <RadioButton
-            android:id="@+id/avancadoRb"
+            android:id="@+id/umDadoRb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/umDado" />
 
         <RadioButton
-            android:id="@+id/basicaRb"
+            android:id="@+id/doisDadosRb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/doisDados" />
