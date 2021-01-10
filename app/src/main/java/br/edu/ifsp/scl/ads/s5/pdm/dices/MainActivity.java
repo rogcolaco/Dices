@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private final int CONFIGURACOES_REQUEST_CODE = 0;
     public static final String EXTRA_CONFIGURACOES = "EXTRA_CONFIGURACOES";
     private final String CONFIGURACOES = "CONFIGURACOES";
+    private final String DOIS_DADOS = "DOIS_DADOS";
 
 
     @Override
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(RESULTADO_SORTEADO_TV, resultadoTv.getText().toString());
+        outState.putBoolean(DOIS_DADOS, configuracoes.getDoisDados());
 
         //VERIFICAR COMO SALVAR O DADO SORTEADO NA TELA
         /*outState.putString(IMAGEM_RESULTADO_DADO_1, resultadoImagem1);
