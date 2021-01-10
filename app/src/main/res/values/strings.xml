@@ -3,4 +3,9 @@
     <string name="jogaDado">Clique no botão abaixo para jogar o dado</string>
     <string name="jogar">JOGAR</string>
     <string name="msgInicial">Não Lançado</string>
+    <string name="qtdDados">Selecione a Quantidade de Dados</string>
+    <string name="qtdFaces">Selecione a Quantidade de Faces</string>
+    <string name="umDado">1</string>
+    <string name="doisDados">2</string>
+    <string name="salvar">Salvar</string>
 </resources>
