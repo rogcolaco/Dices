@@ -19,7 +19,8 @@
     <RadioGroup
         android:id="@+id/tipoCalculadoraRg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingLeft="15sp">
 
         <RadioButton
             android:id="@+id/avancadoRb"
@@ -42,6 +43,14 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/qtdFaces"
+        android:layout_marginTop="30sp"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/facesEdt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
         android:textSize="25sp" />
 
     <Button
@@ -49,6 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClick"
+        android:layout_marginTop="30sp"
         android:text="@string/salvar" />
 
 </LinearLayout>
