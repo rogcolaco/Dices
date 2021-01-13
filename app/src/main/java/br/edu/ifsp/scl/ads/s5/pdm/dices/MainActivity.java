@@ -24,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Integer numFaces;
     private Integer resultado;
+    private Integer resultado2;
     private String resultadoImagem1;
+    private String resultadoImagem2;
 
 
     private final String RESULTADO_SORTEADO_TV = "RESULTADO_SORTEADO_TV";
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 numFaces = Integer.parseInt(configuracoes.getNumFaces());
                 if (numFaces > 6) {
                     findViewById(R.id.resultadoIv).setVisibility(View.GONE);
-                    findViewById(R.id.resultadoIv).setVisibility(View.GONE);
+                    findViewById(R.id.resultado2Iv).setVisibility(View.GONE);
                 } else if (numFaces <= 6 && configuracoes.getDoisDados()) {
                     findViewById(R.id.resultadoIv).setVisibility(View.VISIBLE);
                     findViewById(R.id.resultado2Iv).setVisibility(View.VISIBLE);
@@ -128,17 +130,36 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onClick(View view) {
+    public void onClick(View view) throws InterruptedException {
         if(view == activityMainBinding.jogarBt){
             numFaces = Integer.parseInt(configuracoes.getNumFaces());
+            if(!configuracoes.getDoisDados()) {
+                resultado = new Random(System.currentTimeMillis()).nextInt(numFaces) + 1;
+                activityMainBinding.resultadoTv.setText(resultado.toString());
 
-            resultado = new Random(System.currentTimeMillis()).nextInt(numFaces) + 1;
-            activityMainBinding.resultadoTv.setText(resultado.toString());
+                String resultadoImagem1 = "dice_" + resultado;
+                activityMainBinding.resultadoIv.setImageResource(
+                        getResources().getIdentifier(resultadoImagem1, "drawable", getPackageName())
+                );
+            } else {
+                resultado = new Random(System.currentTimeMillis()).nextInt(numFaces) + 1;
+                Thread.sleep(103);
+                resultado2 = new Random(System.currentTimeMillis()).nextInt(numFaces) + 1;
 
-            String resultadoImagem1 = "dice_"+resultado;
-            activityMainBinding.resultadoIv.setImageResource(
-                    getResources().getIdentifier(resultadoImagem1,"drawable", getPackageName())
-            );
+                activityMainBinding.resultadoTv.setText(resultado.toString() + "   " + resultado2.toString());
+
+                String resultadoImagem1 = "dice_" + resultado;
+                String resultadoImagem2 = "dice_" + resultado2;
+
+                activityMainBinding.resultadoIv.setImageResource(
+                        getResources().getIdentifier(resultadoImagem1, "drawable", getPackageName())
+                );
+
+                activityMainBinding.resultado2Iv.setImageResource(
+                        getResources().getIdentifier(resultadoImagem2, "drawable", getPackageName())
+                );
+
+            }
         }
     }
 
