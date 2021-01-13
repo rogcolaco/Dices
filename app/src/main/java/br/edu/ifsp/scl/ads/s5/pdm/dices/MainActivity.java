@@ -20,10 +20,11 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding activityMainBinding;
     private TextView resultadoTv;
-    private Configuracoes configuracoes = new Configuracoes(false,6);
+    private Configuracoes configuracoes = new Configuracoes(false,"6");
 
-    Integer resultado;
-    String resultadoImagem1;
+    private Integer numFaces;
+    private Integer resultado;
+    private String resultadoImagem1;
 
 
     private final String RESULTADO_SORTEADO_TV = "RESULTADO_SORTEADO_TV";
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putString(RESULTADO_SORTEADO_TV, resultadoTv.getText().toString());
         outState.putBoolean(DOIS_DADOS, configuracoes.getDoisDados());
-        outState.putInt(NUMERO_FACES, configuracoes.getNumFaces());
+        outState.putString(NUMERO_FACES, configuracoes.getNumFaces());
         //outState.putString(IMAGEM_DADO_1, dado.getDice1Image());
 
         //VERIFICAR COMO SALVAR O DADO SORTEADO NA TELA
@@ -90,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent configuracoesIntent = new Intent(CONFIGURACOES);
                 configuracoesIntent.putExtra(EXTRA_CONFIGURACOES, configuracoes);
                 startActivityForResult(configuracoesIntent, CONFIGURACOES_REQUEST_CODE);
-                if(configuracoes.getNumFaces()>6){
+                numFaces = Integer.parseInt(configuracoes.getNumFaces());
+                if(numFaces>6){
                     findViewById(R.id.resultadoIv).setVisibility(View.GONE);
                 }
                 return true;
@@ -110,19 +112,27 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CONFIGURACOES_REQUEST_CODE && resultCode == RESULT_OK && data != null){
             configuracoes = data.getParcelableExtra(EXTRA_CONFIGURACOES);
-            if (configuracoes != null && configuracoes.getDoisDados()) {
-                findViewById(R.id.resultado2Iv).setVisibility(View.VISIBLE);
-            }
-            else {
-                findViewById(R.id.resultado2Iv).setVisibility(View.GONE);
+            if (configuracoes != null ) {
+                numFaces = Integer.parseInt(configuracoes.getNumFaces());
+                if (numFaces > 6) {
+                    findViewById(R.id.resultadoIv).setVisibility(View.GONE);
+                    findViewById(R.id.resultadoIv).setVisibility(View.GONE);
+                } else if (numFaces <= 6 && configuracoes.getDoisDados()) {
+                    findViewById(R.id.resultadoIv).setVisibility(View.VISIBLE);
+                    findViewById(R.id.resultado2Iv).setVisibility(View.VISIBLE);
+                } else if (numFaces <= 6 && !configuracoes.getDoisDados()) {
+                    findViewById(R.id.resultadoIv).setVisibility(View.VISIBLE);
+                    findViewById(R.id.resultado2Iv).setVisibility(View.GONE);
+                }
             }
         }
     }
 
     public void onClick(View view) {
         if(view == activityMainBinding.jogarBt){
-            //resultado = new Random(System.currentTimeMillis()).nextInt(6) + 1;
-            resultado = new Random(System.currentTimeMillis()).nextInt(configuracoes.getNumFaces()) + 1;
+            numFaces = Integer.parseInt(configuracoes.getNumFaces());
+
+            resultado = new Random(System.currentTimeMillis()).nextInt(numFaces) + 1;
             activityMainBinding.resultadoTv.setText(resultado.toString());
 
             String resultadoImagem1 = "dice_"+resultado;
